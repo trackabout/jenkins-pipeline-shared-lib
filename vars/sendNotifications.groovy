@@ -50,5 +50,5 @@ def call(String buildStatus = 'STARTED') {
 
   // Send notifications
   slackSend (color: colorCode, message: summary)
-  githubNotify (description: summary,  status: buildStatus)
+  setGitHubPullRequestStatus (context: 'Jenkins/GitHub custom integration', message: summary, state: buildStatus)
 }
