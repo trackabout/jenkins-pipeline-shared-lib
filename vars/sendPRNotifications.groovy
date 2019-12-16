@@ -36,8 +36,10 @@ def call(String buildStatus = 'STARTED') {
   def changelog = getChangelog()
   def subject = "${buildStatus}: Job `${env.JOB_NAME} [${env.BUILD_NUMBER}]`"
   def summary = """${subject} (${env.BUILD_URL})"
-  ${changelog}
-  """
+PR: ${GITHUB_PR_TITLE} #${GITHUB_PR_NUMBER}
+Author: ${GITHUB_PR_TRIGGER_SENDER_AUTHOR} ${GITHUB_PR_TRIGGER_SENDER_EMAIL}
+Changes: ${changelog}
+"""
 
   // Override default values based on build status
   def githubState = 'PENDING'
