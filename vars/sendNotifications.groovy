@@ -40,15 +40,19 @@ def call(String buildStatus = 'STARTED') {
   """
 
   // Override default values based on build status
+  var githubState = 'PENDING'
   if (buildStatus == 'STARTED') {
+    githubState = 'PENDING'
     colorCode = '#FFFF00' // Yellow
   } else if (buildStatus == 'SUCCESS') {
+    githubState = 'SUCCESS'
     colorCode = '#00FF00' // Green
   } else {
+    githubState = 'FAILURE'
     colorCode = '#770000' // Red
   }
 
   // Send notifications
   slackSend (color: colorCode, message: summary)
-  setGitHubPullRequestStatus (context: 'Jenkins/GitHub custom integration', message: summary, state: buildStatus)
+  setGitHubPullRequestStatus (context: 'Jenkins/GitHub custom integration', message: summary, state: githubState)
 }
