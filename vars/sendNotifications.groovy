@@ -40,7 +40,7 @@ def call(String buildStatus = 'STARTED') {
   """
 
   // Override default values based on build status
-  var githubState = 'PENDING'
+  def githubState = 'PENDING'
   if (buildStatus == 'STARTED') {
     githubState = 'PENDING'
     colorCode = '#FFFF00' // Yellow
