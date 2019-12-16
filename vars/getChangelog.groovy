@@ -1,3 +1,8 @@
+#!/usr/bin/env groovy
+
+/* Gather the changlog from SCM and boil it down to a string.
+Thanks to https://support.cloudbees.com/hc/en-us/articles/217630098/comments/207595368
+*/
 def getChangelog() {
     MAX_MSG_LEN = 100
     def changeString = ""
