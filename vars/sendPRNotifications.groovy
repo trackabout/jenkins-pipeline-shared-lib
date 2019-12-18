@@ -58,5 +58,5 @@ Changes: ${changelog}
 
   // Send notifications
   slackSend (color: colorCode, message: slackMessage)
-  setGitHubPullRequestStatus (context: 'Jenkins/GitHub custom integration', message: subject, state: githubState)
+  setGitHubPullRequestStatus (context: env.JOB_NAME, message: subject, state: githubState)
 }
