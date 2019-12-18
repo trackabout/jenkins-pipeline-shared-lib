@@ -35,7 +35,7 @@ def call(String buildStatus = 'STARTED') {
   def colorCode = '#770000'
   def changelog = getChangelog()
   def subject = "${buildStatus}: Job `${env.JOB_NAME} [${env.BUILD_NUMBER}]`"
-  def summary = """${subject} (${env.BUILD_URL})"
+  def slackMessage = """${subject} (${env.BUILD_URL})"
 PR: ${GITHUB_PR_TITLE} #${GITHUB_PR_NUMBER}
 Author: ${GITHUB_PR_TRIGGER_SENDER_AUTHOR} ${GITHUB_PR_TRIGGER_SENDER_EMAIL}
 Changes: ${changelog}
@@ -55,6 +55,6 @@ Changes: ${changelog}
   }
 
   // Send notifications
-  slackSend (color: colorCode, message: summary)
-  setGitHubPullRequestStatus (context: 'Jenkins/GitHub custom integration', message: summary, state: githubState)
+  slackSend (color: colorCode, message: slackMessage)
+  setGitHubPullRequestStatus (context: 'Jenkins/GitHub custom integration', message: subject, state: githubState)
 }
