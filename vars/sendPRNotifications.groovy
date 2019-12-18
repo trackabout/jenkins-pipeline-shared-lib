@@ -35,9 +35,11 @@ def call(String buildStatus = 'STARTED') {
   def colorCode = '#770000'
   def changelog = getChangelog()
   def subject = "${buildStatus}: Job `${env.JOB_NAME} [${env.BUILD_NUMBER}]`"
-  def slackMessage = """${subject} (${env.BUILD_URL})"
-PR: ${GITHUB_PR_TITLE} #${GITHUB_PR_NUMBER}
-Author: ${GITHUB_PR_TRIGGER_SENDER_AUTHOR} ${GITHUB_PR_TRIGGER_SENDER_EMAIL}
+  def slackMessage = """
+${subject}
+${env.BUILD_URL}
+<${env.GITHUB_PR_URL}|PR #${GITHUB_PR_NUMBER}: ${GITHUB_PR_TITLE}>
+PR Author: ${GITHUB_PR_TRIGGER_SENDER_AUTHOR}
 Changes: ${changelog}
 """
 
