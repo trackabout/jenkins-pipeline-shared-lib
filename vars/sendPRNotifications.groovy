@@ -38,8 +38,16 @@ def call(String buildStatus = 'STARTED') {
   def slackMessage = """
 ${subject}
 ${env.BUILD_URL}
+"""
+
+  if (env.GITHUB_PR_NUMBER) {
+      slackMessage += """
 <${env.GITHUB_PR_URL}|PR #${GITHUB_PR_NUMBER}: ${GITHUB_PR_TITLE}>
 PR Author: ${GITHUB_PR_TRIGGER_SENDER_AUTHOR}
+"""
+  }
+
+  slackMessage += """
 Changes: ${changelog}
 """
 
@@ -58,5 +66,7 @@ Changes: ${changelog}
 
   // Send notifications
   slackSend (color: colorCode, message: slackMessage)
-  setGitHubPullRequestStatus (context: env.JOB_NAME, message: subject, state: githubState)
+  if (env.GITHUB_PR_NUMBER) {
+    setGitHubPullRequestStatus (context: env.JOB_NAME, message: subject, state: githubState)
+  }
 }
