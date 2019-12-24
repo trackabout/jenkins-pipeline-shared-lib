@@ -37,13 +37,12 @@ def call(String buildStatus = 'STARTED') {
   def subject = "${buildStatus}: Job `${env.JOB_NAME} [${env.BUILD_NUMBER}]`"
   def slackMessage = """
 ${subject}
-${env.BUILD_URL}
+<${env.BUILD_URL}|Jenkins Job ${env.JOB_NAME} Build ${env.BUILD_NUMBER}>
 """
 
   if (env.GITHUB_PR_NUMBER) {
       slackMessage += """
-<${env.GITHUB_PR_URL}|PR #${GITHUB_PR_NUMBER}: ${GITHUB_PR_TITLE}>
-PR Author: ${GITHUB_PR_TRIGGER_SENDER_AUTHOR}
+<${env.GITHUB_PR_URL}|GitHub PR #${GITHUB_PR_NUMBER}: ${GITHUB_PR_TITLE} - ${GITHUB_PR_TRIGGER_SENDER_AUTHOR}>
 """
   }
 
