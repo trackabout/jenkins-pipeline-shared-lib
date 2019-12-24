@@ -47,7 +47,9 @@ ${subject}
   }
 
   slackMessage += """
-Changes: ${changelog}
+Changes:
+
+${changelog}
 """
 
   // Override default values based on build status
