@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 def call() {
     // Check for other instances of this particular build, cancel any that are older than the current one
     def jobName = env.JOB_NAME
