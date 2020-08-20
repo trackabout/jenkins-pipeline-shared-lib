@@ -27,9 +27,13 @@ def getChangelog() {
  * Send notifications based on build status string
  * Thanks to Liam Newman https://jenkins.io/blog/2017/02/15/declarative-notifications/
  */
-def call(String buildStatus = 'STARTED') {
-  // build status of null means successful
-  buildStatus = buildStatus ?: 'SUCCESS'
+def call(String buildStatus) {
+  // validate allowable build statuses.
+  def isBuildStatusValid = ['SUCCESS','UNSTABLE','FAILURE','NOT_BUILT','ABORTED'].contains(buildStatus)
+  if (!isBuildStatusValid) {
+    currentBuild.result = 'FAILURE'
+    throw new Exception("Invalid buildStatus passed to groovy function sendPRNotifications. Valid values are SUCCESS, UNSTABLE, FAILURE, NOT_BUILT or ABORTED.")
+  }
 
   // Default values
   def colorCode = '#770000'
